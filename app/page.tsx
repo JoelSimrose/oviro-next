@@ -19,6 +19,7 @@ const philosophies = [
 ];
 
 export default function HomePage() {
+  // Collect homeschool inputs client-side and render a quick draft summary.
   const [children, setChildren] = useState<Child[]>([
     { id: 1, name: '', age: '', grade: '' },
   ]);
@@ -27,6 +28,7 @@ export default function HomePage() {
   const [goals, setGoals] = useState('');
   const [summary, setSummary] = useState<string | null>(null);
 
+  // Append a new child row with a timestamp-based id.
   const addChild = () => {
     setChildren((prev) => [
       ...prev,
@@ -34,6 +36,7 @@ export default function HomePage() {
     ]);
   };
 
+  // Update the requested field for a given child.
   const updateChild = (id: number, field: keyof Child, value: string) => {
     setChildren((prev) =>
       prev.map((child) =>
@@ -46,6 +49,7 @@ export default function HomePage() {
     setChildren((prev) => prev.filter((child) => child.id !== id));
   };
 
+  // Validate at least one child, then build a human-readable summary string.
   const handleGenerate = () => {
     const filledChildren = children.filter(
       (c) => c.name.trim() || c.age.trim() || c.grade.trim(),
